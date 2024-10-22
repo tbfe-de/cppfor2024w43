@@ -2,6 +2,8 @@
 #include <sstream>
 #include <cstdio>
 
+#include "ThreadTester.h"
+
 std::istream& operator>>(std::istream& lhs, char const* rhs) {
     char c;
     char const *cp = rhs;
@@ -25,7 +27,7 @@ int main() {
                      "join\n"
                      ". end program"
                      "\n? ";
-    
+
         std::getline(std::cin, line);
         line +=  ' ';
         return std::cin.good();
@@ -40,12 +42,12 @@ int main() {
         }
         is.clear(); is.seekg(0);
         if ((is >> "bg" >> count >> delay >> std::ws).eof()) {
-            tt.run_in_thread(count, delay);
+            tt.run_as_thread(count, delay);
             continue;
         }
         is.clear(); is.seekg(0);
         if ((is >> "bg" >> delay >> std::ws).eof()) {
-            tt.run_in_thread(0, delay);
+            tt.run_as_thread(0, delay);
             continue;
         }
         is.clear(); is.seekg(0);

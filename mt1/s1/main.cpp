@@ -7,14 +7,15 @@
 
 using namespace std::chrono_literals;
 
-void run_loop(int count, int delay, char const* tty) {
-    std::ofstream os{tty};
+void run_loop(int count, int delay) {
+    std::ostream os{std::cout.rdbuf()};
     os.setf(std::ios::fixed);
     os.precision(5);
     auto const start_tp = std::chrono::steady_clock::now();
-    while (count-- > 0) {
+    for (int i = 1; i <= count; ++i) {
         std::chrono::milliseconds const msec{delay};
-        std::this_thread::sleep_for(msec);
+    //  std::this_thread::sleep_for(msec);
+        std::this_thread::sleep_until(start_tp + i*msec);
         std::chrono::duration<float, std::ratio<1, 1000>> delta_sec{
                 std::chrono::steady_clock::now() - start_tp
         };
