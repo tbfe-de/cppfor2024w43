@@ -16,6 +16,25 @@ void run_in_thread(int count, int delay) {
               << std::endl;
 }
 
+void run_in_thread(int delay) {
+    std::cout << __PRETTY_FUNCTION__
+              << " delay=" << delay
+              << "\n** NOT YET IMPLEMENTED **"
+              << std::endl;
+}
+
+void stop() {
+    std::cout << __PRETTY_FUNCTION__
+              << "\n** NOT YET IMPLEMENTED **"
+              << std::endl;
+}
+
+void join() {
+    std::cout << __PRETTY_FUNCTION__
+              << "\n** NOT YET IMPLEMENTED **"
+              << std::endl;
+}
+
 std::istream& operator>>(std::istream& lhs, char const* rhs) {
     char c;
     char const *cp = rhs;
@@ -29,10 +48,12 @@ std::istream& operator>>(std::istream& lhs, char const* rhs) {
 
 int main() {
     std::string line{};
-    auto prompt_and_get_input = [&line]() {
+    auto prompt_and_get_input = [&line] {
         std::cout << "fg count delay [msec]\n"
                      "bg count delay [msec]\n"
                      "bg delay [msec]\n"
+                     "stop\n"
+                     "join\n"
                      ". end program"
                      "\n? ";
     
@@ -42,24 +63,30 @@ int main() {
     };
     while (prompt_and_get_input()) {
         std::istringstream is{line};
-        int count{};
-        int delay{};
-        if ((is >> "fg" >> count >> delay >> std::ws).eof() and not is.fail()) {
-            run_foreground(count, delay);
-            continue;
-        }
-        if ((is >> "bg" >> count >> delay >> std::ws).eof() and not is.fail()) {
-            run_foreground(count, delay);
-            continue;
-        }
-        is.clear(); is.seekg(0);
+        int count;
+        int delay;
         if ((is >> "fg" >> count >> delay >> std::ws).eof() and not is.fail()) {
             run_foreground(count, delay);
             continue;
         }
         is.clear(); is.seekg(0);
-        if ((is >> "fg" >> count >> delay >> std::ws).eof() and not is.fail()) {
+        if ((is >> "bg" >> delay >> std::ws).eof() and not is.fail()) {
+            run_in_thread(delay);
+            continue;
+        }
+        is.clear(); is.seekg(0);
+        if (!(is >> "bg" >> count >> delay >> std::ws).eof() and not is.fail()) {
             run_in_thread(count, delay);
+            continue;
+        }
+        is.clear(); is.seekg(0);
+        if ((is >> "join" >> std::ws).eof() and not is.fail()) {
+            join();
+            continue;
+        }
+        is.clear(); is.seekg(0);
+        if ((is >> "stop" >> std::ws).eof() and not is.fail()) {
+            stop();
             continue;
         }
         is.clear(); is.seekg(0);

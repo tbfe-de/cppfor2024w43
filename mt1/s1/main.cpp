@@ -36,7 +36,7 @@ int main() {
         int count;
         int delay;
         if ((is >> count >> delay >> std::ws).eof()) {
-            run_loop(count, delay, "/dev/ttys185");
+            run_loop(count, delay, "/dev/pts/1");
         }
     }
 }
