@@ -4,7 +4,7 @@
 #include <iostream>
 
 #define MUST_BE_IMPLEMENTED(...)\
-    (void)(std::cout "TBD: " << __PRETTY_FUNCTION__ << __VA_ARGS__ << std::endl)
+    (void)(std::cout << "TBD: " << __PRETTY_FUNCTION__ << __VA_ARGS__ << std::endl)
 
 class ThreadTester {
 private:
@@ -15,7 +15,7 @@ public:
         run_loop(count, delay, sbuf);
     }
     void run_as_thread(int count, int delay) {
-        MUST_BE_IMPLEMENTED(" count=" << count << " delay=" << delay);
+        MUST_BE_IMPLEMENTED(" count=" << count << " << delay=" << delay);
     }
     void stop() {
         MUST_BE_IMPLEMENTED("");

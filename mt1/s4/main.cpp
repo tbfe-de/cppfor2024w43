@@ -36,32 +36,33 @@ int main() {
         std::istringstream is{line};
         int count;
         int delay;
-        if ((is >> "fg" >> count >> delay >> std::ws).eof()) {
+        if ((is >> "fg" >> count >> delay >> std::ws).eof() and not is.fail()) {
             tt.run_foreground(count, delay);
             continue;
         }
         is.clear(); is.seekg(0);
-        if ((is >> "bg" >> count >> delay >> std::ws).eof()) {
+        if ((is >> "bg" >> count >> delay >> std::ws).eof() and not is.fail()) {
             tt.run_as_thread(count, delay);
             continue;
         }
         is.clear(); is.seekg(0);
-        if ((is >> "bg" >> delay >> std::ws).eof()) {
-            tt.run_as_thread(0, delay);
+        if ((is >> "bg" >> delay >> std::ws).eof() and not is.fail()) {
+            count = std::numeric_limits<decltype(count)>::max();
+            tt.run_as_thread(count, delay);
             continue;
         }
         is.clear(); is.seekg(0);
-        if ((is >> "join" >> std::ws).eof()) {
+        if ((is >> "join" >> std::ws).eof() and not is.fail()) {
             tt.join();
             continue;
         }
         is.clear(); is.seekg(0);
-        if ((is >> "stop" >> std::ws).eof()) {
+        if ((is >> "stop" >> std::ws).eof() and not is.fail()) {
             tt.stop();
             continue;
         }
         is.clear(); is.seekg(0);
-        if ((is >> "." >> std::ws).eof()) {
+        if ((is >> "." >> std::ws).eof() and not is.fail()) {
             std::cout << "bye, bye\n";
             break;
         }
