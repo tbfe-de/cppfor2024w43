@@ -11,6 +11,7 @@ void ThreadTester::run_loop(int count, int delay, std::ostream& out) {
     namespace sc = std::chrono;
     auto const start_tp = std::chrono::steady_clock::now();
     for (int i = 1; i <= count; ++i) {
+        if (not run) return;
         auto const wakeup = start_tp + i*sc::milliseconds{delay};
         std::this_thread::sleep_until(wakeup);
         sc::duration<float, std::ratio<1, 1000>> delta_sec{
