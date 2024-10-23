@@ -3,8 +3,8 @@
 #include <chrono>
 #include <thread>
 
-void ThreadTester::run_loop(int count, int delay, std::streambuf* sbp) {
-    std::ostream os{sbp};
+void ThreadTester::run_loop(int count, int delay, std::ostream& out) {
+    std::ostream os{out.rdbuf()};
     os.setf(std::ios::fixed);
     os.precision(5);
     namespace sc = std::chrono;

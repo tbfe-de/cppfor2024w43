@@ -8,11 +8,10 @@
 
 class ThreadTester {
 private:
-    void run_loop(int, int, std::streambuf*);
+    void run_loop(int, int, std::ostream&);
 public:
     void run_foreground(int count, int delay) {
-        auto sbuf = std::cout.rdbuf();
-        run_loop(count, delay, sbuf);
+        run_loop(count, delay, std::cout);
     }
     void run_as_thread(int count, int delay) {
         MUST_BE_IMPLEMENTED(" count=" << count << " << delay=" << delay);
