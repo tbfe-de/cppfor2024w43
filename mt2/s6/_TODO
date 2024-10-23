@@ -1,0 +1,13 @@
+
+
+
+Instead of showing the time collect them in a `ostringstream output`
+(header file is "sstream") as 3rd argument oo `run:loop`,
+
+When done the result ist available os output.str() and can be
+processed from there as a long string. Retrieve from there
+and collect in a std::vector<float> using an std::istream_iterator.
+Convert to differences between elements,
+sort, shwoe the maximum, the minmum, and the average.
+
+optional: if you want shor also as a simple bar graph

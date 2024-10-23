@@ -35,11 +35,11 @@ void ThreadTester::run_as_thread(int count, int delay) {
 void ThreadTester::stop() {
     if (run == false) return; // thread not running or has requested to stop
     run = false;
-    std::cout << "* bg stop requested *" << std::endl;
+    std::cout << "bg stop requested" << std::endl;
 }
 
 void ThreadTester::join() {
     bg_run.join();
     run = false;
-    std::cout << "* bg run terminated *" << std::endl;
+    std::cout << "bg run terminated" << std::endl;
 }
