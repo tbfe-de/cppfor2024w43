@@ -23,7 +23,7 @@ void run_loop(int count, int delay) {
     }
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     auto prompt_and_get_input = [](std::string& input_line) {
         std::cout << "type: count delay [msec] -- Ctrl-D to end\n? "
                   << std::flush;
@@ -37,7 +37,7 @@ int main() {
         int count;
         int delay;
         if ((is >> count >> delay >> std::ws).eof()) {
-            run_loop(count, delay, "/dev/pts/1");
+            run_loop(count, delay);
         }
     }
 }

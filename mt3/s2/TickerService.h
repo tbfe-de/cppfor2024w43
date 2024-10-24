@@ -18,8 +18,7 @@ public:
     using ClockTP = ClockWork::time_point;
     using ClockTS = ClockWork::duration;
     using ClientResult = std::optional<ClockTP>;
-    using ClientCB = std::function<ClientResult(ClockTP)>;
-//  using ClientCB = std::function<auto(ClockTP) -> ClientResult>;
+    using ClientCB = std::function<auto(ClockTP) -> ClientResult>;
     struct ClientSlot {
         ClockTP nextRun;
         ClientCB callBack;
